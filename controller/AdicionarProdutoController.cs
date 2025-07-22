@@ -107,7 +107,7 @@ namespace MyStoreApi.controller
                     await connection.OpenAsync();
 
                     var query = @"UPDATE mystore
-                    SET produto = @produto, categoria_produto = @categoria_produto, descricao_produto = @descricao_produto, preco = @preco, imagem = @imagem
+                    SET produto = @produto, categoria_produto = @categoria_produto, descricao_produto = @descricao_produto, preco = @preco, imagem = @imagem, link_da_venda = @Link_da_venda, imagem_primaria = @primaria, imagem_segundaria = @segundaria, imagem_terciaria = @terciaria
                     WHERE id = @id;";
 
                     var command = new NpgsqlCommand(query, connection);
@@ -117,6 +117,10 @@ namespace MyStoreApi.controller
                     command.Parameters.AddWithValue("@descricao_produto", Product.Description);
                     command.Parameters.AddWithValue("@preco", Product.Price);
                     command.Parameters.AddWithValue("@imagem", Product.Picture);
+                    command.Parameters.AddWithValue("@Link_da_venda", Product.LinkVenda);
+                    command.Parameters.AddWithValue("@primaria", Product.PictureFirst);
+                    command.Parameters.AddWithValue("@segundaria", Product.PictureSecond);
+                    command.Parameters.AddWithValue("@terciaria", Product.PictureThird);
 
                     await command.ExecuteNonQueryAsync();
                 }
